@@ -8,7 +8,10 @@ const dbURL = config.db.url;
 module.exports = {
   init () {
     // Create the database connection 
-    mongoose.connect(dbURL); 
+    mongoose.connect(dbURL, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true
+    }); 
     mongoose.set('useFindAndModify', false);
     // CONNECTION EVENTS
     // When successfully connected

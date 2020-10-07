@@ -4,8 +4,8 @@
   "description": "A rest api server for iot cloudbased home-automation solution",
   "main": "index.js",
   "scripts": {
-    "start": "node src/index.js",
-    "dev": "nodemon src/index.js"
+    "start": "node index.js",
+    "dev": "nodemon index.js"
   },
   "repository": {
     "type": "git",
@@ -25,9 +25,11 @@
   "homepage": "https://github.com/softdrum/cactus-restapi#readme",
   "dependencies": {
     "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
     "express": "^4.17.1",
     "memory-cache": "^0.2.0",
-    "mongoose": "^5.10.3"
+    "mongoose": "^5.10.3",
+    "socket.io": "^2.3.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.4"

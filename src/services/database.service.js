@@ -2,18 +2,12 @@ const collections = require('../database/models');
 
 
 module.exports = {
-  createDocumentInCollection (collectionName, data) {
-    console.log(collectionName);
-    const document = new collections[collectionName](data)
+  async createDocumentInCollection (collectionName, data) {
+    let document = new collections[collectionName](data)
     return document.save()
   },
   insertDocumentsInCollection (collectionName, data) {
-    return new Promise((resolve, reject) => {
-      collections[collectionName].insertMany(data, (err, docs) => {
-        if (err) reject(err)
-        else resolve({status: 'success', data: docs.length})
-      })
-    })
+    return collections[collectionName].insertMany(data)
   },
   getDocumentsFromCollection (collectionName, query) {
     return new Promise((resolve, reject) => {
@@ -25,8 +19,10 @@ module.exports = {
   },
   findLatestDocument (collectionName, query) {
     return new Promise((resolve, reject) => {
-      console.log(query);
-      collections[collectionName].findOne({}, {}, {sort: {'updatedAt' : '-1'}, ...query}, (err, doc) => {
+      collections[collectionName].findOne({}, {}, {
+        sort: {'createdAt' : '-1'},
+        ...query
+      }, (err, doc) => {
         if (err) reject(err)
         else resolve(doc)
       })
@@ -56,5 +52,7 @@ module.exports = {
       })
     })
   },
-  
+  deleteMany (query) {
+    return collections[collectionName].deleteMany(query)
+  }
 }
