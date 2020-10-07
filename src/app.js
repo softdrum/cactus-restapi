@@ -1,10 +1,12 @@
 /** Initialize express app */
-const express = require('express')
-const app = express()
-const bodyParser = require('body-parser')
+const express = require('express'),
+  app = express(),
+  bodyParser = require('body-parser'),
+  cors = require('cors'),
+  routes = require('./router') // adding routes
+
 app.use(bodyParser.json())
-
-require('./router')(app, express) // adding routes
-
+app.use(cors({origin: '*'}));
+app.use('/api', routes)
 
 module.exports = app
