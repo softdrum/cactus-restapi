@@ -1,4 +1,5 @@
 var sockets = {};
+let cookiesQuantity = 128
 /**
  * Initialization of socket io
  * @param {*} server 
@@ -9,6 +10,7 @@ sockets.init = ( server ) => {
     // initialize modem interface
     io.sockets.on('connection', function (socket) {
       /* Create event listeners */
+      console.log('connection');
       socket.on('subscribe_to_node', (nodeId, callback) => {
         let socketRooms = Object.keys(socket.rooms)
         socketRooms.forEach(room => {
@@ -25,6 +27,12 @@ sockets.init = ( server ) => {
         }
       })
       require('./socket.routing')(socket)
+
+      socket.on('eat_cookie', (callback) => {
+        setTimeout(() => {
+          callback({status: 'success'})
+        }, 2000);
+      })
     });
     return io
 }

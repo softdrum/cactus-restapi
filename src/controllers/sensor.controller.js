@@ -7,7 +7,7 @@ class SensorController {
   async create(req, res) {
     try {
       let data = req.body;
-      let result;
+      let result = {status: 'OK'};
       if (data.length) {
         result = await SensorService.insertMany(data);
       } else {
@@ -21,8 +21,10 @@ class SensorController {
   }
   async read(req, res) {
     try {
+      console.log('getting data');
       let query = req.query;
       let data = await SensorService.getSensorData(query);
+      console.log(data);
       res.json(data);
     } catch (error) {
       console.log(error);

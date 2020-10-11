@@ -2,13 +2,11 @@ const SensorService = require('../services/sensor.service');
 const HOUR = 36e5
 module.exports = (socket) => {
   socket.on('water', (nodeId, callback) => {
-    socket.to(nodeId).emit('water', {status: 'watering'})
-    setTimeout(() => {
-      socket.to(nodeId).emit('water', {status: 'success'})
-      callback('wate')
-    }, 2000);
+    socket.to(nodeId).emit('water', 1)
+    callback({status: 'success'})
   })
-  socket.on('sensor_data', async data => {
+  socket.on('sensors_data', async data => {
+    console.log(data);
     socket.join(data.nodeId)
     socket.to(data.nodeId).emit('new_data', data)
     try {
