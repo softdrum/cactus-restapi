@@ -6,7 +6,6 @@ module.exports = (socket) => {
     callback({status: 'success'})
   })
   socket.on('sensors_data', async data => {
-    console.log(data);
     socket.join(data.nodeId)
     socket.to(data.nodeId).emit('new_data', data)
     try {
